@@ -12,8 +12,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          repository: vzakharchenko/keycloak-radius-plugin
       - name: Prepare
         id: prep
         run: |
@@ -21,7 +19,8 @@ jobs:
           VERSION=${GITHUB_REF/refs\/tags\//}
           SHORTREF=${GITHUB_SHA::8}
           TAGS="${DOCKER_IMAGE}:${VERSION},${DOCKER_IMAGE}:${SHORTREF}"
-          cd docker
+          git clone https://github.com/vzakharchenko/keycloak-radius-plugin.git
+          cd keycloak-radius-plugin && cd docker 
           sed -i "s/quay\.io\.keycloak\.keycloak\/maltegrosse/keycloak-multiarch/g" Dockerfile
           # Set output parameters
           echo ::set-output name=version::${VERSION}
@@ -51,7 +50,7 @@ jobs:
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: .
-          file: ..docker/Dockerfile
+          file: ..keycloak-radius-plugin/docker/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm
           push: true
           tags: ${{ steps.prep.outputs.tags }}
