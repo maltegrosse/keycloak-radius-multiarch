@@ -21,7 +21,7 @@ jobs:
           TAGS="${DOCKER_IMAGE}:${VERSION},${DOCKER_IMAGE}:${SHORTREF}"
           git clone https://github.com/vzakharchenko/keycloak-radius-plugin.git
           cd keycloak-radius-plugin && cd docker 
-          sed -i "s/quay\.io\.keycloak\.keycloak\/maltegrosse/keycloak-multiarch/g" Dockerfile
+          sed -i "s:quay.io/keycloak/keycloak:maltegrosse/keycloak-multiarch:g" Dockerfile
           cd .. && cd ..
           rm README.md
           mv ./keycloak-radius-plugin/docker/* ./
