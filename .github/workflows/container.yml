@@ -22,6 +22,9 @@ jobs:
           git clone https://github.com/vzakharchenko/keycloak-radius-plugin.git
           cd keycloak-radius-plugin && cd docker 
           sed -i "s/quay\.io\.keycloak\.keycloak\/maltegrosse/keycloak-multiarch/g" Dockerfile
+          cd .. && cd ..
+          rm README.md
+          mv ./keycloak-radius-plugin/docker/* ./
           # Set output parameters
           echo ::set-output name=version::${VERSION}
           echo ::set-output name=tags::${TAGS}
@@ -50,7 +53,7 @@ jobs:
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: .
-          file: ..keycloak-radius-plugin/docker/Dockerfile
+          file: ./Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm
           push: true
           tags: ${{ steps.prep.outputs.tags }}
