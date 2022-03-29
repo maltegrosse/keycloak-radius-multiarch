@@ -23,7 +23,7 @@ jobs:
           cd keycloak-radius-plugin && cd docker 
           sed -i "s:quay.io/keycloak/keycloak:maltegrosse/keycloak-multiarch:g" Dockerfile
           sed -i "s:COPY ./:ADD :g" Dockerfile
-          sed -i '/^EXPOSE 1813.*/a RUN /opt/keycloak/kc.sh build' Dockerfile
+          sed -i '/^EXPOSE 1813.*/a RUN /opt/keycloak/bin/kc.sh build' Dockerfile
           cd .. && cd ..
           rm README.md
           mv ./keycloak-radius-plugin/docker/* ./
