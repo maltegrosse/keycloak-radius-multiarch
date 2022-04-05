@@ -18,7 +18,7 @@ jobs:
           DOCKER_IMAGE=${{ secrets.DOCKER_USERNAME }}/${GITHUB_REPOSITORY#*/}
           VERSION=${GITHUB_REF/refs\/tags\//}
           SHORTREF=${GITHUB_SHA::8}
-          TAGS="${DOCKER_IMAGE}:${VERSION},${DOCKER_IMAGE}:${SHORTREF}"
+          TAGS="${DOCKER_IMAGE}:${VERSION},${DOCKER_IMAGE}:latest"
           git clone https://github.com/vzakharchenko/keycloak-radius-plugin.git
           cd keycloak-radius-plugin && cd docker 
           sed -i "s:quay.io/keycloak/keycloak:maltegrosse/keycloak-multiarch:g" Dockerfile
